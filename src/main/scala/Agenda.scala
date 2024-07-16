@@ -1,13 +1,23 @@
 class Agenda (val meetings: List[Meeting]) {
 
   def printDaySchedule(day: String): Unit = {
+    def printSplitDayMeetings(morningOrAfternoon: "morning" | "afternoon", meetings: List[Meeting]): Unit = {
+      println(s"$day $morningOrAfternoon:")
+      if (meetings.length == 0) println(s"  There are no meetings on $day $morningOrAfternoon")
+      else meetings.map(m => println(s"  ${m.time}: ${m.name}"))
+      println
+    }
+
     val meetingsForTheDay = meetings.filter(_.day == day)
-    println(s"$day:")
+    if (meetingsForTheDay.length == 0) println(s"$day:\n  There are no meetings on $day\n")
+    else {
+      val meetingsForTheMorning = meetingsForTheDay.filter(_.time.takeRight(2) == "am")
+      val meetingsForTheAfternoon = meetingsForTheDay.filter(_.time.takeRight(2) == "pm")
 
-    if (meetingsForTheDay.length == 0) println(s"  There are no meetings on $day")
-    else meetingsForTheDay.map(meeting => println(s"  ${meeting.time}: ${meeting.name}"))
+      printSplitDayMeetings("morning", meetingsForTheMorning)
+      printSplitDayMeetings("afternoon", meetingsForTheMorning)
+    }
 
-    println
   }
 }
 

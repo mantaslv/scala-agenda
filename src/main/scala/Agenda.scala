@@ -3,9 +3,10 @@ class Agenda (val meetings: List[Meeting]) {
   def printDaySchedule(day: String): Unit = {
     val meetingsForTheDay = meetings.filter(_.day == day)
     println(s"$day:")
-    for (meeting <- meetingsForTheDay) println(s"  ${meeting.time}: ${meeting.name}")
-  }
 
+    if (meetingsForTheDay.length == 0) println(s"  There are no meetings on $day")
+    else for (meeting <- meetingsForTheDay) println(s"  ${meeting.time}: ${meeting.name}")
+  }
 }
 
 class Meeting (val name: String, val day: String, val time: String)

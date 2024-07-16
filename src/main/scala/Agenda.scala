@@ -5,7 +5,7 @@ class Agenda (val meetings: List[Meeting]) {
     println(s"$day:")
 
     if (meetingsForTheDay.length == 0) println(s"  There are no meetings on $day")
-    else for (meeting <- meetingsForTheDay) println(s"  ${meeting.time}: ${meeting.name}")
+    else meetingsForTheDay.map(meeting => println(s"  ${meeting.time}: ${meeting.name}"))
 
     println
   }
